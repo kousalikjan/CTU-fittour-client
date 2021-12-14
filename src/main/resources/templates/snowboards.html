@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fittour | Snowboard management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+</head>
+<body>
+
+<h1>Snowboards</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>brand</td>
+            <td>model</td>
+            <td>profile</td>
+            <td>flex</td>
+            <td>price</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="snowboard : ${snowboards}">
+            <td th:text="${snowboard.id}">sid</td>
+            <td th:text="${snowboard.brand}">sbrand</td>
+            <td th:text="${snowboard.modelName}">smodel</td>
+            <td th:text="${snowboard.profile}">sprofile</td>
+            <td th:text="${snowboard.flex}">sflex</td>
+            <td th:text="${snowboard.price}">sprice</td>
+
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
