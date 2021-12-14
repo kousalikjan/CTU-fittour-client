@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.fittour.fittourclient.data;
 
 import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,9 +12,9 @@ public class SnowboardClient
 {
    private final WebClient snowboardWebClient;
 
-   public SnowboardClient()
+   public SnowboardClient(@Value("${fittour_backend_url}") String backendUrl)
    {
-       snowboardWebClient = WebClient.create("http://localhost:8080/snowboards");
+       snowboardWebClient = WebClient.create(backendUrl + "/snowboards");
    }
 
    // Flux - nacita postupne kolekci, aby se napr. vykreslovalo podobne pri nacitani velike stranky
