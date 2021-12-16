@@ -6,6 +6,7 @@
     <style>
         body, html {
             height: 100%;
+            background: #efefef;
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -28,21 +29,20 @@
             color: white;
         }
 
-        .hero-text button {
+        .button {
             border: none;
             outline: 0;
-            display: inline-block;
-            padding: 10px 25px;
+            padding: 30px 20px;
             color: black;
             background-color: #ddd;
             text-align: center;
-            cursor: pointer;
+            width: 20%;
+            height: 80%;
+            margin-left: 40%;
+            margin-right: 30%;
+            margin-top: 7em;
         }
 
-        .hero-text button:hover {
-            background-color: #555;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -55,18 +55,19 @@
 </div>
 
 <div>
-    <button onclick="window.location.href='/snowboards';">
+    <button onclick="window.location.href='/snowboards';" class="button">
         Snowboards
     </button>
-
-    <button onclick="window.location.href='/snowboards';">
-        Snowboards
+</div>
+<div>
+    <button onclick="window.location.href='/snowboards';" class="button">
+        Riders
     </button>
-
-    <button onclick="window.location.href='/snowboards';">
-        Snowboards
+</div>
+<div>
+    <button onclick="window.location.href='/snowboards';" class="button">
+        Contests
     </button>
-
 </div>
 
 </body>
