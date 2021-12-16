@@ -4,14 +4,49 @@
     <meta charset="UTF-8">
     <title>Fittour | Snowboard management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"/>
+    <style>
+        body, html {
+            height: 100%;
+            background: #efefef;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://coresites-cdn-adm.imgix.net/onboard/wp-content/uploads/2015/04/Snowboard-Wallpaper-Mario-Kaeppeli-Arlberg-1920x1080.jpg?fit=crop");
+            height: 20%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Snowboards</h1>
+<div class="hero-image">
+    <div class="hero-text">
+        <h1 style="font-size:50px">FITTour | Snowboards</h1>
+        <p>Established since 2021 </p>
+    </div>
+</div>
 
-<p>
+    <a href="/home">Back to homepage</a>
+    <br>
     <a href="/snowboards/add">Add snowboard</a>
-</p>
+    <br>
+    <a href="/snowboards/add">Update snowboard</a>
+    <br>
+    <a href="/snowboards/add">Delete snowboard</a>
 
 <table class="table">
     <thead>
@@ -32,7 +67,6 @@
             <td th:text="${snowboard.profile}">sprofile</td>
             <td th:text="${snowboard.flex}">sflex</td>
             <td th:text="${snowboard.price}">sprice</td>
-
         </tr>
     </tbody>
 </table>
