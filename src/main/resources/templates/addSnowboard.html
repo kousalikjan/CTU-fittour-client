@@ -7,7 +7,10 @@
 </head>
 <body>
 <h1>Snowboard addition</h1>
-<form action="#" method="post" th:action="@{/snowboards/add}" th:object="${snowboardDto}" >
+<form action="#" method="post" th:action="@{/snowboards/add}" th:object="${snowboardModel}" >
+    <div class ="alert alert-warning" th:if="*{error}">
+        Invalid format of data!
+    </div>
     <div class="form-group">
         <label for="brand">brand</label>
         <input type="text" class="form-control" name="brand" id="brand" th:field="*{brand}"/>
