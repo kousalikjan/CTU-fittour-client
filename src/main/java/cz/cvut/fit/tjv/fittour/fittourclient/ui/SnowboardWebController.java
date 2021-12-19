@@ -75,4 +75,14 @@ public class SnowboardWebController
         return "editSnowboard";
     }
 
+    @GetMapping("/snowboards/delete")
+    public String deleteSnowboard(@RequestParam Integer id, Model model)
+    {
+        System.out.println("delete" + id);
+        model.addAttribute("", snowboardClient.delete(id));
+        model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards());
+        model.addAttribute("formatError", false);
+        return "snowboards";
+    }
+
 }

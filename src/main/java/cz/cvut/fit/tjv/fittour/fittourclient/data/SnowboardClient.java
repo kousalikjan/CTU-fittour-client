@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardModel;
 import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -58,6 +59,15 @@ public class SnowboardClient
                .retrieve()
                .bodyToMono(SnowboardModel.class);
    }
+
+   public Mono<Void> delete(Integer id)
+   {
+       return snowboardWebClient.delete()
+               .uri(ONE_URI, id)
+               .retrieve()
+               .bodyToMono(Void.class);
+   }
+
 
 
 
