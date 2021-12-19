@@ -20,6 +20,12 @@ public class SnowboardModel extends SnowboardDto
         this.error = error;
     }
 
+    public SnowboardModel(Integer id, String brand, String modelName, String profile, int flex, int price, boolean error)
+    {
+        super(id, brand, modelName, profile, flex, price);
+        this.error = error;
+    }
+
     public boolean isError()
     {
         return error;

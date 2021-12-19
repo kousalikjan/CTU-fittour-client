@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
@@ -27,6 +28,7 @@ public class SnowboardWebController
     public String getAllSnowboards(Model model)
     {
         model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards());
+        model.addAttribute("formatError", false);
         return "snowboards"; // vraci jaky HTML soubor z templates se ma vratit
     }
 
@@ -34,6 +36,7 @@ public class SnowboardWebController
     public String addSnowboardGet(Model model)
     {
         model.addAttribute("snowboardModel", new SnowboardModel());
+        model.addAttribute("success", false);
         return "addSnowboard";
     }
 
@@ -42,11 +45,34 @@ public class SnowboardWebController
     {
         if (result.hasErrors()) {
             model.addAttribute("snowboardModel", new SnowboardModel(true, snowboardModel));
+            model.addAttribute("success", false);
             return "addSnowboard";
         }
         model.addAttribute("snowboardModel", snowboardClient.create(snowboardModel)
                 .onErrorReturn(WebClientResponseException.BadRequest.class, new SnowboardModel(true, snowboardModel)));
+        model.addAttribute("success", true);
         return "addSnowboard";
+    }
+
+    @GetMapping("/snowboards/edit")
+    public String editSnowboard(@RequestParam Integer id, Model model)
+    {
+        model.addAttribute("snowboardDto", snowboardClient.readById(id));
+        model.addAttribute("success", false);
+        return "editSnowboard";
+    }
+
+    @PostMapping("/snowboards/edit")
+    public String editSnowboardSubmit(Model model, @ModelAttribute @Validated SnowboardDto snowboardDto, BindingResult result)
+    {
+        if (result.hasErrors()) {
+            model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards());
+            model.addAttribute("formatError", true);
+            return "snowboards";
+        }
+        model.addAttribute("snowboardDto", snowboardClient.update(snowboardDto));
+        model.addAttribute("success", true);
+        return "editSnowboard";
     }
 
 }

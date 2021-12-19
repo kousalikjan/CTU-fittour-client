@@ -17,6 +17,12 @@
     <a href="/home">Back to homepage</a>
     <br>
     <a href="/snowboards/add">Add snowboard</a>
+
+
+<div class ="alert alert-danger" th:if="${formatError}">
+    Invalid format of data!
+</div>
+
 <table class="table">
     <thead>
         <tr>

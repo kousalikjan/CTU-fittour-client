@@ -13,11 +13,14 @@
         <p>Established since 2021 </p>
     </div>
 </div>
-
 <a href="/snowboards">Back to snowboards</a>
 <br><br>
 
-<form action="#" method="post" th:action="@{/snowboards/add}" th:object="${snowboardModel}" >
+<form action="#" th:action="@{/snowboards/edit}" th:object="${snowboardDto}" method="post">
+    <div class="form-floating">
+        <input type="text" id="id" name="id" th:field="*{id}" class="form-control" readonly/><br/>
+        <label for="id">id</label>
+    </div>
     <div class="form-floating">
         <input type="text" class="form-control" name="brand" id="brand" th:field="*{brand}"/><br/>
         <label for="brand">brand</label>
@@ -43,9 +46,16 @@
         Invalid format of data!
     </div>
     <div class ="alert alert-success" th:if="${success}">
-        Successfully added!
+        Successfully updated!
     </div>
-    <button type="submit" class="btn btn-outline-dark">Add</button>
+    <button type="submit" class="btn btn-outline-dark">Edit</button>
+
+
 </form>
+
+
+
+
+
 </body>
 </html>

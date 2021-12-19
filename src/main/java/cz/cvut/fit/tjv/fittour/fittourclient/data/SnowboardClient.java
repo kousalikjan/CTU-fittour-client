@@ -2,7 +2,7 @@ package cz.cvut.fit.tjv.fittour.fittourclient.data;
 
 import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardDto;
 import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardModel;
-import netscape.javascript.JSObject;
+import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class SnowboardClient
 {
+   private static final String ONE_URI = "/{id}";
    private final WebClient snowboardWebClient;
 
    public SnowboardClient(@Value("${fittour_backend_url}") String backendUrl)
@@ -38,6 +39,26 @@ public class SnowboardClient
                 .retrieve()
                 .bodyToMono(SnowboardModel.class);
    }
+
+   public Mono<SnowboardModel> readById(Integer id)
+   {
+       return snowboardWebClient.get()
+               .uri(ONE_URI, id)
+               .retrieve()
+               .bodyToMono(SnowboardModel.class);
+   }
+
+
+   public Mono<SnowboardModel> update(SnowboardDto snowboard)
+   {
+       return snowboardWebClient.put()
+               .uri(ONE_URI, snowboard.getId())
+               .contentType(MediaType.APPLICATION_JSON)
+               .bodyValue(SnowboardConverter.createDtoWtihNoID(snowboard))
+               .retrieve()
+               .bodyToMono(SnowboardModel.class);
+   }
+
 
 
 
