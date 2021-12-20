@@ -39,4 +39,12 @@ public class RiderClient
                 .bodyToMono(RiderModel.class);
     }
 
+    public Mono<RiderModel> readById(Integer id)
+    {
+        return riderWebClient.get()
+                .uri(ONE_URI, id)
+                .retrieve()
+                .bodyToMono(RiderModel.class);
+    }
+
 }

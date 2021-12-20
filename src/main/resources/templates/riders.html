@@ -30,6 +30,7 @@
         <td>name</td>
         <td>surname</td>
         <td>dateOfBirth</td>
+        <td>snowboard_id</td>
         <td>snowboard</td>
 
     </tr>
@@ -40,8 +41,16 @@
         <td th:text="${r.name}">name</td>
         <td th:text="${r.surname}">surname</td>
         <td th:text="${r.dateOfBirth}">dateOfBirth</td>
-        <td><a href="#" th:href="@{/riders/{id}/snowboard(id=${r.id})}">show</a></td>
-        <td><a href="#" th:href="@{'/riders/editSnowboard?id=' + ${r.id}}">edit</a></td>
+
+        <td th:if="${r.snowboard}">
+            <a href="#" th:href="@{'/riders/snowboard?id=' + ${r.snowboard.id}}" th:text="${r.snowboard.id}">id</a>
+
+        </td>
+
+        <td th:unless="${r.snowboard}">-</td>
+
+
+        <td><a href="#" th:href="@{/riders/{id}/editSnowboard(id = ${r.id})}">update</a></td>
         <td><a href="#" th:href="@{'/riders/edit?id=' + ${r.id}}">edit</a></td>
         <td><a href="#" th:href="@{'/riders/delete?id=' + ${r.id}}">delete</a></td>
     </tr>

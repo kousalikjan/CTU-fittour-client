@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -83,7 +80,6 @@ public class SnowboardWebController
     @GetMapping("/snowboards/delete")
     public String deleteSnowboard(@RequestParam Integer id, Model model)
     {
-        System.out.println("delete" + id);
         model.addAttribute("", snowboardClient.delete(id));
         model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards().sort((o1, o2) ->
                 Objects.equals(o1.getId(), o2.getId()) ? 0 :
@@ -91,5 +87,14 @@ public class SnowboardWebController
         model.addAttribute("formatError", false);
         return "redirect:/snowboards";
     }
+
+    @GetMapping("/riders/snowboard")
+    public String getSnowboard(@RequestParam Integer id, Model model)
+    {
+        System.out.println("here");
+        model.addAttribute("snowboard", snowboardClient.readById(id));
+        return "ridersOneSnowboard";
+    }
+
 
 }
