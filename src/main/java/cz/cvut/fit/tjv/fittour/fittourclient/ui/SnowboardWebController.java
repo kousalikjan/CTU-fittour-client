@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-import reactor.core.publisher.Mono;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 @Controller
@@ -45,7 +41,7 @@ public class SnowboardWebController
     {
         model.addAttribute("snowboardModel", new SnowboardModel());
         model.addAttribute("success", false);
-        return "addSnowboard";
+        return "snowboardsAdd";
     }
 
     @PostMapping("/snowboards/add")
@@ -54,11 +50,11 @@ public class SnowboardWebController
         if (result.hasErrors()) {
             model.addAttribute("snowboardModel", new SnowboardModel(true, snowboardModel));
             model.addAttribute("success", false);
-            return "addSnowboard";
+            return "snowboardsAdd";
         }
         model.addAttribute("snowboardModel", snowboardClient.create(snowboardModel));
         model.addAttribute("success", true);
-        return "addSnowboard";
+        return "snowboardsAdd";
     }
 
     @GetMapping("/snowboards/edit")
@@ -66,7 +62,7 @@ public class SnowboardWebController
     {
         model.addAttribute("snowboardDto", snowboardClient.readById(id));
         model.addAttribute("success", false);
-        return "editSnowboard";
+        return "snowboardsEdit";
     }
 
     @PostMapping("/snowboards/edit")
@@ -81,7 +77,7 @@ public class SnowboardWebController
         }
         model.addAttribute("snowboardDto", snowboardClient.update(snowboardDto));
         model.addAttribute("success", true);
-        return "editSnowboard";
+        return "snowboardsEdit";
     }
 
     @GetMapping("/snowboards/delete")
