@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import reactor.core.publisher.Mono;
+
+import java.util.Comparator;
+import java.util.Objects;
 
 @Controller
 public class SnowboardWebController
@@ -27,7 +31,11 @@ public class SnowboardWebController
     @GetMapping("/snowboards")
     public String getAllSnowboards(Model model)
     {
-        model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards());
+        model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards()
+                .sort((o1, o2) ->
+                Objects.equals(o1.getId(), o2.getId()) ? 0 :
+                        o1.getId() < o2.getId() ? -1 : 1));
+
         model.addAttribute("formatError", false);
         return "snowboards"; // vraci jaky HTML soubor z templates se ma vratit
     }
@@ -48,8 +56,7 @@ public class SnowboardWebController
             model.addAttribute("success", false);
             return "addSnowboard";
         }
-        model.addAttribute("snowboardModel", snowboardClient.create(snowboardModel)
-                .onErrorReturn(WebClientResponseException.BadRequest.class, new SnowboardModel(true, snowboardModel)));
+        model.addAttribute("snowboardModel", snowboardClient.create(snowboardModel));
         model.addAttribute("success", true);
         return "addSnowboard";
     }
@@ -66,7 +73,9 @@ public class SnowboardWebController
     public String editSnowboardSubmit(Model model, @ModelAttribute @Validated SnowboardDto snowboardDto, BindingResult result)
     {
         if (result.hasErrors()) {
-            model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards());
+            model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards().sort((o1, o2) ->
+                    Objects.equals(o1.getId(), o2.getId()) ? 0 :
+                            o1.getId() < o2.getId() ? -1 : 1));
             model.addAttribute("formatError", true);
             return "snowboards";
         }
@@ -80,9 +89,11 @@ public class SnowboardWebController
     {
         System.out.println("delete" + id);
         model.addAttribute("", snowboardClient.delete(id));
-        model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards());
+        model.addAttribute("snowboards", snowboardClient.fetchAllSnowboards().sort((o1, o2) ->
+                Objects.equals(o1.getId(), o2.getId()) ? 0 :
+                        o1.getId() < o2.getId() ? -1 : 1));
         model.addAttribute("formatError", false);
-        return "snowboards";
+        return "redirect:/snowboards";
     }
 
 }

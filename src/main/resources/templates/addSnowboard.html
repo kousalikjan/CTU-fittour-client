@@ -43,7 +43,8 @@
         Invalid format of data!
     </div>
     <div class ="alert alert-success" th:if="${success}">
-        Successfully added!
+        Successfully added! New ID:
+        <label th:text="*{id}">id</label>
     </div>
     <button type="submit" class="btn btn-outline-dark">Add</button>
 </form>
