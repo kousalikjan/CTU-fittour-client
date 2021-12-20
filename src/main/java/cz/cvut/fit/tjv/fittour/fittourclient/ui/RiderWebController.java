@@ -1,9 +1,15 @@
 package cz.cvut.fit.tjv.fittour.fittourclient.ui;
 
 import cz.cvut.fit.tjv.fittour.fittourclient.data.RiderClient;
+import cz.cvut.fit.tjv.fittour.fittourclient.model.RiderModel;
+import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Objects;
 
@@ -27,6 +33,30 @@ public class RiderWebController
 
         model.addAttribute("formatError", false);
         return "riders"; // vraci jaky HTML soubor z templates se ma vratit
+    }
+
+    @GetMapping("/riders/add")
+    public String addRiderGet(Model model)
+    {
+        model.addAttribute("riderModel", new RiderModel());
+        model.addAttribute("success", false);
+        return "ridersAdd";
+    }
+
+    @PostMapping("/riders/add")
+    public String addRiderSubmit(Model model, @ModelAttribute @Validated RiderModel riderModel, BindingResult result)
+    {
+        System.out.println("here");
+        if (result.hasErrors()) {
+            System.out.println(riderModel.dateOfBirth);
+            model.addAttribute("riderModel", new RiderModel(riderModel));
+            model.addAttribute("success", false);
+            return "ridersAdd";
+        }
+        System.out.println("here2");
+        model.addAttribute("riderModel", riderClient.create(riderModel));
+        model.addAttribute("success", true);
+        return "ridersAdd";
     }
 
 

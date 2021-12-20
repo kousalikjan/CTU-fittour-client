@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.fittour.fittourclient.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class RiderModel
     public String surname;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate dateOfBirth;
 
     public SnowboardDto snowboard;
@@ -23,6 +25,15 @@ public class RiderModel
     public RiderModel()
     {
 
+    }
+
+    public RiderModel(RiderModel riderModel)
+    {
+        this.id = riderModel.getId();
+        this.name = riderModel.getName();
+        this.surname = riderModel.getSurname();
+        this.dateOfBirth = riderModel.getDateOfBirth();
+        this.snowboard = riderModel.getSnowboard();
     }
 
     public Integer getId()
