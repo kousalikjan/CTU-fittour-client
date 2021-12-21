@@ -35,6 +35,15 @@ public class RiderModel
         this.snowboard = riderModel.getSnowboard();
     }
 
+    public RiderModel(Integer id, String name, String surname, LocalDate dateOfBirth, SnowboardDto snowboard)
+    {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.dateOfBirth = dateOfBirth;
+        this.snowboard = snowboard;
+    }
+
     public Integer getId()
     {
         return id;

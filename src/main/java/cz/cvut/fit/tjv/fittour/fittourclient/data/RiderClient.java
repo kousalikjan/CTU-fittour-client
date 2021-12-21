@@ -1,10 +1,9 @@
 package cz.cvut.fit.tjv.fittour.fittourclient.data;
 
 import cz.cvut.fit.tjv.fittour.fittourclient.model.RiderModel;
-import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardDto;
+import cz.cvut.fit.tjv.fittour.fittourclient.model.ModelConverter;
 import cz.cvut.fit.tjv.fittour.fittourclient.model.SnowboardModel;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,7 +21,7 @@ public class RiderClient
         riderWebClient = WebClient.create(backendUrl + "/riders");
     }
 
-    public Flux<RiderModel> fetchAllSnowboards()
+    public Flux<RiderModel> fetchAllRiders()
     {
         return riderWebClient.get()
                 .accept(MediaType.APPLICATION_JSON)
@@ -42,7 +41,6 @@ public class RiderClient
 
     public Mono<RiderModel> readById(Integer id)
     {
-        System.out.println("here2");
         return riderWebClient.get()
                 .uri(ONE_URI, id)
                 .retrieve()
@@ -59,6 +57,26 @@ public class RiderClient
                 .retrieve()
                 .bodyToMono(RiderModel.class);
 
+    }
+
+    public Mono<Void> delete(Integer id)
+    {
+        return riderWebClient.delete()
+                .uri(ONE_URI, id)
+                .retrieve()
+                .bodyToMono(Void.class);
+    }
+
+
+    public Mono<RiderModel> update(RiderModel riderModel)
+    {
+        return riderWebClient.put()
+                .uri(ONE_URI, riderModel.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(ModelConverter.createModelWtihNoIDs(riderModel))
+                .retrieve()
+                .bodyToMono(RiderModel.class);
     }
 
 
