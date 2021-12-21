@@ -24,7 +24,6 @@ public class RiderModel
 
     public RiderModel()
     {
-
     }
 
     public RiderModel(RiderModel riderModel)
