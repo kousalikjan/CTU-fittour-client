@@ -91,7 +91,6 @@ public class SnowboardWebController
     @GetMapping("/riders/snowboard")
     public String getSnowboard(@RequestParam Integer id, Model model)
     {
-        System.out.println("here");
         model.addAttribute("snowboard", snowboardClient.readById(id));
         return "ridersOneSnowboard";
     }

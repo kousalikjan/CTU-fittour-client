@@ -11,4 +11,10 @@ public class HomeWebController
     {
         return "home";
     }
+
+    @GetMapping("/contests")
+    public String getContests()
+    {
+        return "contests";
+    }
 }
